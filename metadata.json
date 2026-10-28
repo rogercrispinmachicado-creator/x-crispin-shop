@@ -1,0 +1,7 @@
+{
+  "name": "X-CRISPIN",
+  "description": "Plataforma oficial X-CRISPIN – SHOP THE X. Catálogo Factor X Company Bolivia 2026: nutrición liofilizada, cafés funcionales, colágenos, bonos de patrocinio, compras seguras con QR y transferencias en Bolivia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

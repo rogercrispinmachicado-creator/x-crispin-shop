@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  h1, h2, h3, .font-display {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* ==========================================================================
+   ENHANCED PRINT MEDIA QUERIES
+   Calibrated for high-contrast, clean paper printing of:
+   1. Official Receipts (ReceiptModal / #printable-receipt)
+   2. Checkout Order Summaries (CheckoutPage confirmation and summary cards)
+   ========================================================================== */
+
+@page {
+  size: auto;
+  margin: 12mm 15mm 15mm 15mm;
+}
+
+@media print {
+  /* Universal Print Resets & Color Adjustments */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    text-shadow: none !important;
+  }
+
+  html,
+  body {
+    width: 100% !important;
+    min-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10.5pt !important;
+    line-height: 1.4 !important;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Don't append link URLs to anchor text */
+  a[href]::after {
+    content: none !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     1. Hide Non-Printable Elements
+     -------------------------------------------------------------------------- */
+  header,
+  nav,
+  footer,
+  aside:not(.checkout-order-summary),
+  .print\:hidden,
+  .print-hidden,
+  .no-print,
+  button,
+  input[type="button"],
+  input[type="submit"],
+  .cart-drawer,
+  .cart-drawer-overlay,
+  .notification-dropdown,
+  #role-switcher-banner,
+  .checkout-stepper,
+  .checkout-nav-buttons,
+  form:not(.print-allow-form) {
+    display: none !important;
+  }
+
+  /* Remove screen-only fixed position bounds & scrolling */
+  body,
+  main,
+  #root,
+  .min-h-screen {
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     2. Receipt View Printing (#printable-receipt & ReceiptModal)
+     -------------------------------------------------------------------------- */
+  .receipt-modal-overlay,
+  div:has(> .receipt-modal-dialog),
+  div:has(#printable-receipt) {
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  .receipt-modal-dialog {
+    position: static !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* When Receipt Modal is open, hide background page content */
+  body:has(#printable-receipt) main > *:not(:has(#printable-receipt)),
+  body:has(#printable-receipt) .checkout-confirmation-container > *:not(:has(#printable-receipt)) {
+    display: none !important;
+  }
+
+  #printable-receipt {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  .receipt-header {
+    border-bottom: 2pt solid #0f172a !important;
+    padding-bottom: 12pt !important;
+    margin-bottom: 14pt !important;
+  }
+
+  .receipt-order-badge {
+    background: #0f172a !important;
+    color: #ffffff !important;
+    border: 1pt solid #0f172a !important;
+    padding: 2pt 8pt !important;
+    border-radius: 3pt !important;
+  }
+
+  .receipt-customer-card {
+    background-color: #f8fafc !important;
+    border: 1pt solid #cbd5e1 !important;
+    border-radius: 4pt !important;
+    padding: 10pt !important;
+    margin-bottom: 12pt !important;
+  }
+
+  .receipt-table,
+  table.receipt-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 10pt 0 !important;
+    font-size: 9pt !important;
+  }
+
+  .receipt-table th {
+    background-color: #f1f5f9 !important;
+    color: #1e293b !important;
+    border-bottom: 1.5pt solid #475569 !important;
+    padding: 5pt 7pt !important;
+    text-transform: uppercase !important;
+    font-size: 8pt !important;
+    font-weight: 700 !important;
+  }
+
+  .receipt-table td {
+    border-bottom: 1pt solid #e2e8f0 !important;
+    padding: 5pt 7pt !important;
+    vertical-align: top !important;
+  }
+
+  .receipt-totals-section {
+    border-top: 1.5pt solid #cbd5e1 !important;
+    padding-top: 10pt !important;
+    margin-top: 10pt !important;
+  }
+
+  .receipt-totals-box {
+    width: 48% !important;
+    font-size: 9pt !important;
+  }
+
+  .receipt-total-row {
+    border-top: 1.5pt solid #0f172a !important;
+    padding-top: 5pt !important;
+    font-size: 11pt !important;
+    font-weight: 900 !important;
+    color: #0e7490 !important;
+  }
+
+  .receipt-footer {
+    border-top: 1pt dashed #94a3b8 !important;
+    padding-top: 10pt !important;
+    margin-top: 12pt !important;
+    font-size: 8pt !important;
+    color: #475569 !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     3. CheckoutPage Order Summary & Confirmation Printing
+     -------------------------------------------------------------------------- */
+  .checkout-confirmation-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #printable-checkout-confirmation,
+  .checkout-order-summary-view {
+    border: 1pt solid #cbd5e1 !important;
+    border-radius: 4pt !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    padding: 14pt !important;
+    margin: 0 0 14pt 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+  }
+
+  .checkout-order-summary-view h1 {
+    font-size: 15pt !important;
+    line-height: 1.3 !important;
+    margin-bottom: 6pt !important;
+    color: #0f172a !important;
+  }
+
+  .checkout-items-summary {
+    background: #ffffff !important;
+    border: 1pt solid #cbd5e1 !important;
+    border-radius: 4pt !important;
+    padding: 8pt 10pt !important;
+    margin-top: 10pt !important;
+  }
+
+  .checkout-items-summary table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 9pt !important;
+  }
+
+  .checkout-items-summary th {
+    border-bottom: 1.5pt solid #475569 !important;
+    padding: 5pt 6pt !important;
+    background-color: #f8fafc !important;
+    color: #334155 !important;
+  }
+
+  .checkout-items-summary td {
+    border-bottom: 1pt solid #e2e8f0 !important;
+    padding: 5pt 6pt !important;
+  }
+
+  .checkout-payment-box {
+    background-color: #f8fafc !important;
+    border: 1pt solid #cbd5e1 !important;
+    border-radius: 4pt !important;
+    padding: 10pt !important;
+    margin-top: 10pt !important;
+  }
+
+  /* Active Checkout Step 5 Review & Sidebar Order Summary */
+  .checkout-step-summary {
+    border: 1pt solid #cbd5e1 !important;
+    border-radius: 4pt !important;
+    padding: 10pt !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  .checkout-sidebar-wrapper,
+  .checkout-order-summary {
+    position: static !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    border: 1pt solid #cbd5e1 !important;
+    border-radius: 4pt !important;
+    padding: 10pt !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 12pt !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     4. Page-Break & Layout Discipline
+     -------------------------------------------------------------------------- */
+  .print-avoid-break,
+  .receipt-header,
+  .receipt-customer-card,
+  .receipt-totals-section,
+  .receipt-footer,
+  .checkout-payment-box,
+  .checkout-items-summary,
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+}
+
